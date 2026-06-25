@@ -82,6 +82,80 @@ form { display:flex; flex-direction:column; gap:20px; }
 .field select { appearance:none; cursor:pointer; }
 .field textarea { min-height:120px; resize:vertical; }
 
+/* FILE UPLOAD */
+.file-drop-zone {
+  background:var(--surface); border:1.5px dashed var(--border-dark);
+  border-radius:8px; padding:20px 16px; cursor:pointer; text-align:center;
+  transition:border-color var(--ease), background var(--ease);
+  position:relative;
+}
+.file-drop-zone:hover,
+.file-drop-zone.dragover { border-color:var(--accent); background:var(--accent-glow); }
+.file-drop-zone input[type="file"] {
+  position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:pointer;
+}
+.file-drop-icon { color:var(--text-muted); margin-bottom:8px; }
+.file-drop-text { font-size:14px; color:var(--text-muted); }
+.file-drop-text strong { color:var(--text); }
+.file-drop-hint { font-size:12px; color:var(--text-muted); margin-top:4px; }
+.file-list { margin-top:12px; display:flex; flex-direction:column; gap:6px; text-align:left; }
+.file-item {
+  display:flex; align-items:center; justify-content:space-between;
+  background:var(--surface-2); border-radius:6px; padding:8px 12px;
+  font-size:13px; color:var(--text);
+}
+.file-item-name { display:flex; align-items:center; gap:8px; overflow:hidden; }
+.file-item-name svg { flex-shrink:0; color:var(--accent); }
+.file-item-name span { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.file-item-size { color:var(--text-muted); font-size:12px; flex-shrink:0; margin-left:8px; }
+.file-remove {
+  background:none; border:none; color:var(--text-muted); cursor:pointer;
+  padding:2px 4px; border-radius:4px; font-size:16px; line-height:1;
+  transition:color var(--ease); flex-shrink:0;
+}
+.file-remove:hover { color:#F87171; }
+.file-error { font-size:12px; color:#F87171; margin-top:6px; }
+
+/* PRIVACY */
+.privacy-section {
+  background:var(--surface); border:1px solid var(--border-dark);
+  border-radius:8px; padding:18px;
+}
+.privacy-title {
+  font-size:13px; font-weight:700; color:var(--text);
+  margin-bottom:12px; letter-spacing:0.02em;
+}
+.privacy-table {
+  width:100%; border-collapse:collapse; font-size:12px;
+  margin-bottom:12px;
+}
+.privacy-table th, .privacy-table td {
+  border:1px solid var(--border-dark); padding:8px 10px;
+  text-align:left; line-height:1.5;
+}
+.privacy-table th {
+  background:var(--surface-2); color:var(--text-muted);
+  font-weight:600; white-space:nowrap;
+}
+.privacy-table td { color:var(--text); }
+.privacy-notice { font-size:12px; color:var(--text-muted); line-height:1.6; margin-bottom:14px; }
+.privacy-agree {
+  display:flex; align-items:center; gap:10px; cursor:pointer;
+  font-size:14px; font-weight:600; color:var(--text);
+}
+.privacy-agree input[type="checkbox"] { display:none; }
+.privacy-checkbox-box {
+  width:18px; height:18px; border-radius:4px; flex-shrink:0;
+  border:1.5px solid var(--border-dark); background:var(--surface-2);
+  display:flex; align-items:center; justify-content:center;
+  transition:border-color var(--ease), background var(--ease);
+}
+.privacy-agree:has(input:checked) .privacy-checkbox-box {
+  border-color:var(--accent); background:var(--accent);
+}
+.privacy-checkbox-mark { opacity:0; transition:opacity var(--ease); }
+.privacy-agree:has(input:checked) .privacy-checkbox-mark { opacity:1; }
+
 /* CHECKBOX GROUP */
 .check-group { display:flex; flex-direction:column; gap:7px; }
 .check-group label {
@@ -228,6 +302,61 @@ form { display:flex; flex-direction:column; gap:20px; }
         <textarea name="message" placeholder="현재 환경, 예산 규모, 도입 일정 등 자유롭게 작성해 주세요."></textarea>
       </div>
 
+      <div class="field">
+        <label>첨부파일</label>
+        <div class="file-drop-zone" id="file-drop-zone">
+          <input type="file" name="attachment" id="file-input"
+            accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.hwp,.hwpx,.png,.jpg,.jpeg,.gif,.webp"
+            multiple>
+          <div class="file-drop-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M10 20.5V22a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-1.5"/>
+              <path d="M16 6v14M11 11l5-5 5 5"/>
+              <rect x="4" y="24" width="24" height="2" rx="1" opacity="0.3"/>
+            </svg>
+          </div>
+          <p class="file-drop-text"><strong>파일을 드래그하거나 클릭</strong>하여 업로드하세요</p>
+          <p class="file-drop-hint">10MB 이하의 문서 및 이미지 (PDF, HWP, Word, Excel, PPT, 이미지)</p>
+          <div id="file-list" class="file-list"></div>
+          <p id="file-error" class="file-error" style="display:none"></p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="privacy-section">
+        <p class="privacy-title">개인정보 수집 및 이용 동의 <span style="color:var(--accent)">*</span></p>
+        <table class="privacy-table">
+          <thead>
+            <tr>
+              <th>수집 항목</th>
+              <th>수집 목적</th>
+              <th>보유 기간</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>회사명, 담당자 성함,<br>직책/부서, 연락처, 이메일</td>
+              <td>도입 문의 접수 및<br>담당자 상담 연락</td>
+              <td>문의 처리 완료 후<br>3년</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="privacy-notice">
+          위 개인정보 수집·이용에 동의하지 않으실 수 있으나, 동의를 거부하실 경우 도입 문의 접수가 제한될 수 있습니다.<br>
+          수집된 개인정보는 「개인정보 보호법」에 따라 안전하게 관리되며, 목적 외 용도로 사용되지 않습니다.
+        </p>
+        <label class="privacy-agree">
+          <input type="checkbox" name="privacy_agree" id="privacy-agree" required>
+          <span class="privacy-checkbox-box">
+            <svg class="privacy-checkbox-mark" width="10" height="8" viewBox="0 0 10 8" fill="none">
+              <path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span>개인정보 수집 및 이용에 동의합니다.</span>
+        </label>
+      </div>
+
       <button type="submit" class="btn-submit" id="submit-btn">문의 제출하기</button>
     </form>
   </div>
@@ -252,6 +381,69 @@ const thankYou = document.getElementById('thank-you');
 const formSection = document.getElementById('form-section');
 const submitBtn = document.getElementById('submit-btn');
 
+/* ── File upload ── */
+const dropZone = document.getElementById('file-drop-zone');
+const fileInput = document.getElementById('file-input');
+const fileList  = document.getElementById('file-list');
+const fileError = document.getElementById('file-error');
+const MAX_SIZE  = 10 * 1024 * 1024; // 10 MB
+let selectedFiles = [];
+
+function formatBytes(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+function renderFileList() {
+  fileList.innerHTML = '';
+  selectedFiles.forEach((f, i) => {
+    const item = document.createElement('div');
+    item.className = 'file-item';
+    item.innerHTML = `
+      <span class="file-item-name">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M9 2H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6L9 2z"/>
+          <path d="M9 2v4h4"/>
+        </svg>
+        <span title="${f.name}">${f.name}</span>
+      </span>
+      <span style="display:flex;align-items:center;gap:4px">
+        <span class="file-item-size">${formatBytes(f.size)}</span>
+        <button type="button" class="file-remove" data-index="${i}" aria-label="파일 삭제">×</button>
+      </span>`;
+    fileList.appendChild(item);
+  });
+  fileList.querySelectorAll('.file-remove').forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedFiles.splice(+btn.dataset.index, 1);
+      renderFileList();
+    });
+  });
+}
+
+function addFiles(files) {
+  fileError.style.display = 'none';
+  const errors = [];
+  Array.from(files).forEach(f => {
+    if (f.size > MAX_SIZE) { errors.push(`"${f.name}"은(는) 10MB를 초과합니다.`); return; }
+    if (!selectedFiles.find(s => s.name === f.name && s.size === f.size)) selectedFiles.push(f);
+  });
+  if (errors.length) { fileError.textContent = errors.join(' '); fileError.style.display = 'block'; }
+  renderFileList();
+}
+
+fileInput.addEventListener('change', () => { addFiles(fileInput.files); fileInput.value = ''; });
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('dragover');
+  addFiles(e.dataTransfer.files);
+});
+
+/* ── Form submit ── */
 form.addEventListener('submit', async function(e) {
   e.preventDefault();
 
@@ -266,6 +458,8 @@ form.addEventListener('submit', async function(e) {
 
   try {
     const data = new FormData(form);
+    selectedFiles.forEach(f => data.append('attachment', f));
+
     const res = await fetch(action, {
       method: 'POST',
       body: data,
