@@ -200,15 +200,8 @@ section { padding:96px 48px; }
 
 /* ── DEMO (dark) ── */
 #demo { background:var(--ground); }
-.demo-grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  grid-template-areas:"product product" "empty studio";
-  gap:28px; margin-top:48px;
-}
-.demo-item-product { grid-area:product; }
-.demo-item-studio  { grid-area:studio; }
-@media (max-width:900px) { .demo-grid { grid-template-columns:1fr; grid-template-areas:"product" "studio"; } }
+.demo-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:48px; }
+@media (max-width:900px) { .demo-grid { grid-template-columns:1fr; } }
 .demo-item { display:flex; flex-direction:column; gap:14px; }
 .demo-item-label {
   font-size:11px; font-weight:800; letter-spacing:0.13em; text-transform:uppercase;
@@ -656,7 +649,7 @@ footer p { font-size:13px; color:var(--text-muted); }
       <span class="en">See Hancom Agentic OS in action.</span>
     </p>
     <div class="demo-grid fi fi-d2">
-      <div class="demo-item demo-item-product">
+      <div class="demo-item">
         <div class="demo-item-label">Product Video</div>
         <div class="demo-item-title">
           <span class="ko">한컴 Agentic OS 소개 영상</span>
@@ -668,7 +661,7 @@ footer p { font-size:13px; color:var(--text-muted); }
           </video>
         </div>
       </div>
-      <div class="demo-item demo-item-studio">
+      <div class="demo-item">
         <div class="demo-item-label">Studio Demo</div>
         <div class="demo-item-title">
           <span class="ko">스튜디오 시연 영상</span>
