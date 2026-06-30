@@ -51,8 +51,9 @@ nav {
   background:rgba(11,15,26,0.88); backdrop-filter:blur(16px);
   border-bottom:1px solid var(--border-dark);
 }
-.nav-logo { font-size:18px; font-weight:800; color:var(--text); text-decoration:none; letter-spacing:-0.02em; }
-.nav-logo em { color:var(--accent); font-style:normal; }
+.nav-logo { display:flex; align-items:center; gap:8px; text-decoration:none; }
+.nav-logo img { height:22px; width:auto; display:block; }
+.nav-logo em { font-size:18px; font-weight:800; color:var(--accent); font-style:normal; letter-spacing:-0.02em; }
 .nav-links { display:flex; gap:32px; list-style:none; }
 .nav-links a { color:var(--text-muted); text-decoration:none; font-size:14px; font-weight:500; transition:color var(--ease); }
 .nav-links a:hover { color:var(--text); }
@@ -392,8 +393,9 @@ section { padding:96px 48px; }
 /* ── FOOTER ── */
 footer { background:var(--ground); border-top:1px solid var(--border-dark); padding:44px 48px; }
 .footer-inner { max-width:1160px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
-.footer-logo { font-size:16px; font-weight:800; color:var(--text); letter-spacing:-0.02em; }
-.footer-logo em { color:var(--accent); font-style:normal; }
+.footer-logo { display:flex; align-items:center; gap:8px; }
+.footer-logo img { height:18px; width:auto; display:block; }
+.footer-logo em { font-size:16px; font-weight:800; color:var(--accent); font-style:normal; letter-spacing:-0.02em; }
 footer p { font-size:13px; color:var(--text-muted); }
 
 /* ── SCROLL ANIMATION ── */
@@ -438,7 +440,7 @@ footer p { font-size:13px; color:var(--text-muted); }
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#hero">한컴 <em>Agentic OS</em></a>
+  <a class="nav-logo" href="#hero"><img src="hancom-logo-white.png" alt="한컴"> <em>Agentic OS</em></a>
   <ul class="nav-links">
     <li><a href="#why"><span class="ko">왜 지금인가</span><span class="en">Why Now</span></a></li>
     <li><a href="#what"><span class="ko">제품 소개</span><span class="en">Product</span></a></li>
@@ -1084,7 +1086,7 @@ footer p { font-size:13px; color:var(--text-muted); }
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo">한컴 <em>Agentic OS</em></div>
+    <div class="footer-logo"><img src="hancom-logo-white.png" alt="한컴"> <em>Agentic OS</em></div>
     <p>© 2026 <span class="ko">한글과컴퓨터그룹</span><span class="en">Hancom Inc.</span> All rights reserved.</p>
     <p><span class="ko">AI를 넘어 AX를 선도합니다.</span><span class="en">Leading beyond AI to AX.</span></p>
   </div>

@@ -45,8 +45,9 @@ nav {
   background:rgba(11,15,26,0.92); backdrop-filter:blur(16px);
   border-bottom:1px solid var(--border-dark);
 }
-.nav-logo { font-size:18px; font-weight:800; color:var(--text); text-decoration:none; letter-spacing:-0.02em; }
-.nav-logo em { color:var(--accent); font-style:normal; }
+.nav-logo { display:flex; align-items:center; gap:8px; text-decoration:none; }
+.nav-logo img { height:22px; width:auto; display:block; }
+.nav-logo em { font-size:18px; font-weight:800; color:var(--accent); font-style:normal; letter-spacing:-0.02em; }
 .nav-right { display:flex; align-items:center; gap:20px; }
 .nav-back { color:var(--text-muted); text-decoration:none; font-size:14px; font-weight:500; display:flex; align-items:center; gap:6px; transition:color var(--ease); }
 .nav-back:hover { color:var(--text); }
@@ -226,7 +227,7 @@ form { display:flex; flex-direction:column; gap:20px; }
 <body>
 
 <nav>
-  <a class="nav-logo" href="index.html">한컴 <em>Agentic OS</em></a>
+  <a class="nav-logo" href="index.html"><img src="hancom-logo-white.png" alt="한컴"> <em>Agentic OS</em></a>
   <div class="nav-right">
     <div class="lang-toggle">
       <button class="lang-btn active" id="btn-ko" onclick="setLang('ko')">한</button>
