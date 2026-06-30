@@ -1117,6 +1117,9 @@ function setLang(lang) {
   document.documentElement.lang = lang;
   document.getElementById('btn-ko').classList.toggle('active', lang === 'ko');
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.title = lang === 'en'
+    ? 'Hancom Agentic OS — Leading the AX Era'
+    : '한컴 Agentic OS — AI를 넘어 AX를 선도하는';
   localStorage.setItem('lang', lang);
 }
 

@@ -462,6 +462,9 @@ function setLang(lang) {
   document.documentElement.lang = lang;
   document.getElementById('btn-ko').classList.toggle('active', lang === 'ko');
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.title = lang === 'en'
+    ? 'Contact Us — Hancom Agentic OS'
+    : '도입 문의 — 한컴 Agentic OS';
   localStorage.setItem('lang', lang);
 
   const t = I18N[lang];
