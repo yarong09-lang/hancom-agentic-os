@@ -200,14 +200,23 @@ section { padding:96px 48px; }
 
 /* ── DEMO (dark) ── */
 #demo { background:var(--ground); }
-.demo-video-wrap {
-  margin-top:48px; border-radius:var(--radius-lg); overflow:hidden;
-  border:1px solid var(--border-dark);
-  box-shadow:0 24px 64px rgba(0,0,0,0.5);
-  position:relative; background:#000;
+.demo-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:48px; }
+@media (max-width:900px) { .demo-grid { grid-template-columns:1fr; } }
+.demo-item { display:flex; flex-direction:column; gap:14px; }
+.demo-item-label {
+  font-size:11px; font-weight:800; letter-spacing:0.13em; text-transform:uppercase;
+  color:var(--accent);
 }
-.demo-video-wrap video {
-  width:100%; display:block; max-height:640px; object-fit:contain;
+.demo-item-title { font-size:16px; font-weight:700; color:var(--text); line-height:1.4; }
+.demo-video-wrap {
+  border-radius:var(--radius-lg); overflow:hidden;
+  border:1px solid var(--border-dark);
+  box-shadow:0 16px 48px rgba(0,0,0,0.5);
+  background:#000; position:relative;
+}
+.demo-video-wrap video { width:100%; display:block; object-fit:contain; }
+.demo-video-wrap iframe {
+  width:100%; aspect-ratio:16/9; display:block; border:none;
 }
 
 /* ── HOW (dark) ── */
@@ -639,10 +648,32 @@ footer p { font-size:13px; color:var(--text-muted); }
       <span class="ko">한컴 Agentic OS가 실제로 동작하는 모습을 확인하세요.</span>
       <span class="en">See Hancom Agentic OS in action.</span>
     </p>
-    <div class="demo-video-wrap fi fi-d2">
-      <video controls preload="metadata" poster="">
-        <source src="demo.mp4" type="video/mp4">
-      </video>
+    <div class="demo-grid fi fi-d2">
+      <div class="demo-item">
+        <div class="demo-item-label">Product Video</div>
+        <div class="demo-item-title">
+          <span class="ko">한컴 Agentic OS 소개 영상</span>
+          <span class="en">Hancom Agentic OS — Official Video</span>
+        </div>
+        <div class="demo-video-wrap">
+          <iframe src="https://www.youtube.com/embed/23c6k46qpJ8"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-item-label">Studio Demo</div>
+        <div class="demo-item-title">
+          <span class="ko">스튜디오 시연 영상</span>
+          <span class="en">Studio Demo Recording</span>
+        </div>
+        <div class="demo-video-wrap">
+          <video controls preload="metadata">
+            <source src="demo.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
     </div>
   </div>
 </section>
