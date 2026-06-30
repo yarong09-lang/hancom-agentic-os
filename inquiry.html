@@ -23,6 +23,18 @@
 html { scroll-behavior:smooth; }
 body { font-family:var(--font); background:var(--ground); color:var(--text); min-height:100vh; line-height:1.65; }
 
+/* LANG TOGGLE */
+html[lang="ko"] .en { display:none !important; }
+html[lang="en"] .ko { display:none !important; }
+.lang-toggle { display:flex; align-items:center; gap:4px; }
+.lang-btn {
+  background:transparent; border:1px solid var(--border-dark); color:var(--text-muted);
+  padding:4px 10px; border-radius:5px; font-size:12px; font-weight:700;
+  cursor:pointer; font-family:var(--font); transition:all var(--ease);
+}
+.lang-btn.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+.lang-btn:hover:not(.active) { border-color:rgba(255,255,255,0.3); color:var(--text); }
+
 /* NAV */
 nav {
   position:fixed; top:0; left:0; right:0; z-index:100;
@@ -33,6 +45,7 @@ nav {
 }
 .nav-logo { font-size:18px; font-weight:800; color:var(--text); text-decoration:none; letter-spacing:-0.02em; }
 .nav-logo em { color:var(--accent); font-style:normal; }
+.nav-right { display:flex; align-items:center; gap:20px; }
 .nav-back { color:var(--text-muted); text-decoration:none; font-size:14px; font-weight:500; display:flex; align-items:center; gap:6px; transition:color var(--ease); }
 .nav-back:hover { color:var(--text); }
 .nav-back svg { width:16px; height:16px; }
@@ -212,98 +225,103 @@ form { display:flex; flex-direction:column; gap:20px; }
 
 <nav>
   <a class="nav-logo" href="index.html">한컴 <em>Agentic OS</em></a>
-  <a class="nav-back" href="index.html">
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
-      <path d="M10 3L5 8l5 5"/>
-    </svg>
-    메인으로 돌아가기
-  </a>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-ko" onclick="setLang('ko')">한</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <a class="nav-back" href="index.html">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M10 3L5 8l5 5"/>
+      </svg>
+      <span class="ko">메인으로 돌아가기</span><span class="en">Back to Main</span>
+    </a>
+  </div>
 </nav>
 
 <main>
   <div id="form-section">
-    <p class="page-eyebrow">도입 문의</p>
-    <h1 class="page-title">한컴 Agentic OS<br>도입을 검토하고 계신가요?</h1>
-    <p class="page-desc">아래 양식을 작성해 주시면 담당 컨설턴트가 1~2 영업일 내 연락드립니다.<br><span style="color:var(--accent)">*</span> 표시 항목은 필수입니다.</p>
+    <p class="page-eyebrow"><span class="ko">도입 문의</span><span class="en">Contact Us</span></p>
+    <h1 class="page-title">
+      <span class="ko">한컴 Agentic OS<br>도입을 검토하고 계신가요?</span>
+      <span class="en">Considering<br>Hancom Agentic OS?</span>
+    </h1>
+    <p class="page-desc">
+      <span class="ko">아래 양식을 작성해 주시면 담당 컨설턴트가 1~2 영업일 내 연락드립니다.<br><span style="color:var(--accent)">*</span> 표시 항목은 필수입니다.</span>
+      <span class="en">Fill in the form below and our consultant will contact you within 1–2 business days.<br><span style="color:var(--accent)">*</span> Required fields.</span>
+    </p>
 
-    <!-- TODO: action 값을 Formspree에서 발급받은 URL로 교체하세요 -->
-    <!-- 예: https://formspree.io/f/xabc1234 -->
     <form id="inquiry-form" action="https://formspree.io/f/xpqgqqdr" method="POST">
-      <!-- Formspree 제출 후 이 페이지에 머물도록 -->
       <input type="hidden" name="_next" value="">
       <input type="hidden" name="_subject" value="[한컴 Agentic OS] 도입 문의가 접수되었습니다">
       <input type="text" name="_gotcha" style="display:none">
 
       <div class="form-row">
         <div class="field">
-          <label>회사명 <span>*</span></label>
-          <input type="text" name="company" placeholder="(주)한글과컴퓨터" required>
+          <label><span class="ko">회사명</span><span class="en">Company</span> <span>*</span></label>
+          <input type="text" name="company" id="input-company" required>
         </div>
         <div class="field">
-          <label>담당자 성함 <span>*</span></label>
-          <input type="text" name="name" placeholder="홍길동" required>
+          <label><span class="ko">담당자 성함</span><span class="en">Full Name</span> <span>*</span></label>
+          <input type="text" name="name" id="input-name" required>
         </div>
       </div>
 
       <div class="form-row">
         <div class="field">
-          <label>직책 / 부서</label>
-          <input type="text" name="position" placeholder="AI 혁신팀 팀장">
+          <label><span class="ko">직책 / 부서</span><span class="en">Title / Department</span></label>
+          <input type="text" name="position" id="input-position">
         </div>
         <div class="field">
-          <label>연락처 <span>*</span></label>
-          <input type="tel" name="phone" placeholder="010-0000-0000" required>
+          <label><span class="ko">연락처</span><span class="en">Phone</span> <span>*</span></label>
+          <input type="tel" name="phone" id="input-phone" required>
         </div>
       </div>
 
       <div class="field">
-        <label>이메일 <span>*</span></label>
-        <input type="email" name="email" placeholder="example@company.com" required>
+        <label><span class="ko">이메일</span><span class="en">Email</span> <span>*</span></label>
+        <input type="email" name="email" id="input-email" required>
       </div>
 
       <div class="divider"></div>
 
       <div class="field">
-        <label>직원 규모</label>
-        <select name="company_size">
-          <option value="" disabled selected>선택해 주세요</option>
-          <option value="50명 미만">50명 미만</option>
-          <option value="50~200명">50~200명</option>
-          <option value="200~1,000명">200~1,000명</option>
-          <option value="1,000명 이상">1,000명 이상</option>
+        <label><span class="ko">직원 규모</span><span class="en">Company Size</span></label>
+        <select name="company_size" id="select-size">
+          <option value="" disabled selected></option>
         </select>
       </div>
 
       <div class="check-group">
-        <label>관심 배포 방식 (복수 선택 가능)</label>
+        <label><span class="ko">관심 배포 방식 (복수 선택 가능)</span><span class="en">Preferred Deployment (multiple choice)</span></label>
         <div class="check-options">
           <label class="check-option">
             <input type="checkbox" name="deploy_type" value="On-Prem">
-            🏢 On-Prem (폐쇄망)
+            🏢 On-Prem (<span class="ko">폐쇄망</span><span class="en">Closed Network</span>)
           </label>
           <label class="check-option">
             <input type="checkbox" name="deploy_type" value="SaaS">
-            ☁️ SaaS (클라우드)
+            ☁️ SaaS (<span class="ko">클라우드</span><span class="en">Cloud</span>)
           </label>
           <label class="check-option">
-            <input type="checkbox" name="deploy_type" value="하이브리드">
-            🔀 하이브리드
+            <input type="checkbox" name="deploy_type" value="Hybrid">
+            🔀 <span class="ko">하이브리드</span><span class="en">Hybrid</span>
           </label>
         </div>
       </div>
 
       <div class="field">
-        <label>도입 희망 업무 / 산업</label>
-        <input type="text" name="industry" placeholder="예: 금융 여신심사 자동화, 제조 공장 운영 최적화">
+        <label><span class="ko">도입 희망 업무 / 산업</span><span class="en">Target Use Case / Industry</span></label>
+        <input type="text" name="industry" id="input-industry">
       </div>
 
       <div class="field">
-        <label>추가 문의사항</label>
-        <textarea name="message" placeholder="현재 환경, 예산 규모, 도입 일정 등 자유롭게 작성해 주세요."></textarea>
+        <label><span class="ko">추가 문의사항</span><span class="en">Additional Message</span></label>
+        <textarea name="message" id="input-message"></textarea>
       </div>
 
       <div class="field">
-        <label>첨부파일</label>
+        <label><span class="ko">첨부파일</span><span class="en">Attachment</span></label>
         <div class="file-drop-zone" id="file-drop-zone">
           <input type="file" name="attachment" id="file-input"
             accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.hwp,.hwpx,.png,.jpg,.jpeg,.gif,.webp"
@@ -315,8 +333,8 @@ form { display:flex; flex-direction:column; gap:20px; }
               <rect x="4" y="24" width="24" height="2" rx="1" opacity="0.3"/>
             </svg>
           </div>
-          <p class="file-drop-text"><strong>파일을 드래그하거나 클릭</strong>하여 업로드하세요</p>
-          <p class="file-drop-hint">10MB 이하의 문서 및 이미지 (PDF, HWP, Word, Excel, PPT, 이미지)</p>
+          <p class="file-drop-text" id="drop-text"></p>
+          <p class="file-drop-hint" id="drop-hint"></p>
           <div id="file-list" class="file-list"></div>
           <p id="file-error" class="file-error" style="display:none"></p>
         </div>
@@ -325,26 +343,41 @@ form { display:flex; flex-direction:column; gap:20px; }
       <div class="divider"></div>
 
       <div class="privacy-section">
-        <p class="privacy-title">개인정보 수집 및 이용 동의 <span style="color:var(--accent)">*</span></p>
+        <p class="privacy-title">
+          <span class="ko">개인정보 수집 및 이용 동의</span>
+          <span class="en">Privacy &amp; Data Collection Consent</span>
+          <span style="color:var(--accent)"> *</span>
+        </p>
         <table class="privacy-table">
           <thead>
             <tr>
-              <th>수집 항목</th>
-              <th>수집 목적</th>
-              <th>보유 기간</th>
+              <th><span class="ko">수집 항목</span><span class="en">Items Collected</span></th>
+              <th><span class="ko">수집 목적</span><span class="en">Purpose</span></th>
+              <th><span class="ko">보유 기간</span><span class="en">Retention Period</span></th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>회사명, 담당자 성함,<br>직책/부서, 연락처, 이메일</td>
-              <td>도입 문의 접수 및<br>담당자 상담 연락</td>
-              <td>문의 처리 완료 후<br>3년</td>
+              <td>
+                <span class="ko">회사명, 담당자 성함,<br>직책/부서, 연락처, 이메일</span>
+                <span class="en">Company, Name,<br>Title/Dept., Phone, Email</span>
+              </td>
+              <td>
+                <span class="ko">도입 문의 접수 및<br>담당자 상담 연락</span>
+                <span class="en">Processing inquiry &amp;<br>consultant follow-up</span>
+              </td>
+              <td>
+                <span class="ko">문의 처리 완료 후<br>3년</span>
+                <span class="en">3 years after<br>inquiry resolved</span>
+              </td>
             </tr>
           </tbody>
         </table>
         <p class="privacy-notice">
-          위 개인정보 수집·이용에 동의하지 않으실 수 있으나, 동의를 거부하실 경우 도입 문의 접수가 제한될 수 있습니다.<br>
-          수집된 개인정보는 「개인정보 보호법」에 따라 안전하게 관리되며, 목적 외 용도로 사용되지 않습니다.
+          <span class="ko">위 개인정보 수집·이용에 동의하지 않으실 수 있으나, 동의를 거부하실 경우 도입 문의 접수가 제한될 수 있습니다.<br>
+          수집된 개인정보는 「개인정보 보호법」에 따라 안전하게 관리되며, 목적 외 용도로 사용되지 않습니다.</span>
+          <span class="en">You may decline consent, but doing so may limit your ability to submit an inquiry.<br>
+          Collected data is managed securely under applicable privacy laws and will not be used for other purposes.</span>
         </p>
         <label class="privacy-agree">
           <input type="checkbox" name="privacy_agree" id="privacy-agree" required>
@@ -353,11 +386,16 @@ form { display:flex; flex-direction:column; gap:20px; }
               <path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </span>
-          <span>개인정보 수집 및 이용에 동의합니다.</span>
+          <span>
+            <span class="ko">개인정보 수집 및 이용에 동의합니다.</span>
+            <span class="en">I agree to the collection and use of my personal data.</span>
+          </span>
         </label>
       </div>
 
-      <button type="submit" class="btn-submit" id="submit-btn">문의 제출하기</button>
+      <button type="submit" class="btn-submit" id="submit-btn">
+        <span class="ko">문의 제출하기</span><span class="en">Submit Inquiry</span>
+      </button>
     </form>
   </div>
 
@@ -369,24 +407,96 @@ form { display:flex; flex-direction:column; gap:20px; }
         <path d="M20 32L28 40L44 24" stroke="#FF6B00" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
-    <h2>문의가 접수되었습니다</h2>
-    <p>담당 컨설턴트가 <strong style="color:var(--text)">1~2 영업일 내</strong> 연락드리겠습니다.<br>추가 문의는 <a href="mailto:yarong09@hancom.com" class="email-link">yarong09@hancom.com</a>으로 보내주세요.</p>
-    <a href="index.html" class="btn-home">메인 페이지로 돌아가기</a>
+    <h2><span class="ko">문의가 접수되었습니다</span><span class="en">Inquiry Received</span></h2>
+    <p>
+      <span class="ko">담당 컨설턴트가 <strong style="color:var(--text)">1~2 영업일 내</strong> 연락드리겠습니다.<br>추가 문의는 <a href="mailto:yarong09@hancom.com" class="email-link">yarong09@hancom.com</a>으로 보내주세요.</span>
+      <span class="en">Our consultant will contact you within <strong style="color:var(--text)">1–2 business days</strong>.<br>For further questions, email <a href="mailto:yarong09@hancom.com" class="email-link">yarong09@hancom.com</a>.</span>
+    </p>
+    <a href="index.html" class="btn-home">
+      <span class="ko">메인 페이지로 돌아가기</span><span class="en">Back to Main Page</span>
+    </a>
   </div>
 </main>
 
 <script>
-const form = document.getElementById('inquiry-form');
-const thankYou = document.getElementById('thank-you');
-const formSection = document.getElementById('form-section');
-const submitBtn = document.getElementById('submit-btn');
+/* ── Lang ── */
+const I18N = {
+  ko: {
+    company:    '(주)한글과컴퓨터',
+    name:       '홍길동',
+    position:   'AI 혁신팀 팀장',
+    phone:      '010-0000-0000',
+    email:      'example@company.com',
+    industry:   '예: 금융 여신심사 자동화, 제조 공장 운영 최적화',
+    message:    '현재 환경, 예산 규모, 도입 일정 등 자유롭게 작성해 주세요.',
+    dropText:   '<strong>파일을 드래그하거나 클릭</strong>하여 업로드하세요',
+    dropHint:   '10MB 이하의 문서 및 이미지 (PDF, HWP, Word, Excel, PPT, 이미지)',
+    sizeOpts:   ['선택해 주세요','50명 미만','50~200명','200~1,000명','1,000명 이상'],
+    sizeVals:   ['','50명 미만','50~200명','200~1,000명','1,000명 이상'],
+    submit:     '제출 중...',
+    submitErr:  '제출 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.',
+    fileErr:    '은(는) 10MB를 초과합니다.',
+  },
+  en: {
+    company:    'Hancom Inc.',
+    name:       'John Doe',
+    position:   'Head of AI Innovation',
+    phone:      '+1-000-000-0000',
+    email:      'example@company.com',
+    industry:   'e.g. Financial credit review automation, Factory operations optimization',
+    message:    'Feel free to describe your current environment, budget, timeline, etc.',
+    dropText:   '<strong>Drag &amp; drop or click</strong> to upload files',
+    dropHint:   'Documents &amp; images up to 10MB (PDF, HWP, Word, Excel, PPT, images)',
+    sizeOpts:   ['Please select','Under 50','50–200','200–1,000','1,000+'],
+    sizeVals:   ['','Under 50','50–200','200–1,000','1,000+'],
+    submit:     'Submitting...',
+    submitErr:  'Submission failed. Please try again later.',
+    fileErr:    ' exceeds the 10MB limit.',
+  }
+};
+
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  document.getElementById('btn-ko').classList.toggle('active', lang === 'ko');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  localStorage.setItem('lang', lang);
+
+  const t = I18N[lang];
+  document.getElementById('input-company').placeholder  = t.company;
+  document.getElementById('input-name').placeholder     = t.name;
+  document.getElementById('input-position').placeholder = t.position;
+  document.getElementById('input-phone').placeholder    = t.phone;
+  document.getElementById('input-email').placeholder    = t.email;
+  document.getElementById('input-industry').placeholder = t.industry;
+  document.getElementById('input-message').placeholder  = t.message;
+  document.getElementById('drop-text').innerHTML        = t.dropText;
+  document.getElementById('drop-hint').textContent      = t.dropHint;
+
+  const sel = document.getElementById('select-size');
+  const cur = sel.value;
+  sel.innerHTML = '';
+  t.sizeOpts.forEach(function(label, i) {
+    var opt = document.createElement('option');
+    opt.value = t.sizeVals[i];
+    opt.textContent = label;
+    if (i === 0) opt.disabled = true;
+    if (t.sizeVals[i] === cur) opt.selected = true;
+    sel.appendChild(opt);
+  });
+  if (!cur) sel.selectedIndex = 0;
+}
+
+(function() {
+  var saved = localStorage.getItem('lang') || 'ko';
+  setLang(saved);
+})();
 
 /* ── File upload ── */
 const dropZone = document.getElementById('file-drop-zone');
 const fileInput = document.getElementById('file-input');
 const fileList  = document.getElementById('file-list');
 const fileError = document.getElementById('file-error');
-const MAX_SIZE  = 10 * 1024 * 1024; // 10 MB
+const MAX_SIZE  = 10 * 1024 * 1024;
 let selectedFiles = [];
 
 function formatBytes(bytes) {
@@ -397,25 +507,25 @@ function formatBytes(bytes) {
 
 function renderFileList() {
   fileList.innerHTML = '';
-  selectedFiles.forEach((f, i) => {
+  selectedFiles.forEach(function(f, i) {
     const item = document.createElement('div');
     item.className = 'file-item';
-    item.innerHTML = `
-      <span class="file-item-name">
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M9 2H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6L9 2z"/>
-          <path d="M9 2v4h4"/>
-        </svg>
-        <span title="${f.name}">${f.name}</span>
-      </span>
-      <span style="display:flex;align-items:center;gap:4px">
-        <span class="file-item-size">${formatBytes(f.size)}</span>
-        <button type="button" class="file-remove" data-index="${i}" aria-label="파일 삭제">×</button>
-      </span>`;
+    item.innerHTML =
+      '<span class="file-item-name">' +
+        '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">' +
+          '<path d="M9 2H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6L9 2z"/>' +
+          '<path d="M9 2v4h4"/>' +
+        '</svg>' +
+        '<span title="' + f.name + '">' + f.name + '</span>' +
+      '</span>' +
+      '<span style="display:flex;align-items:center;gap:4px">' +
+        '<span class="file-item-size">' + formatBytes(f.size) + '</span>' +
+        '<button type="button" class="file-remove" data-index="' + i + '" aria-label="remove">×</button>' +
+      '</span>';
     fileList.appendChild(item);
   });
-  fileList.querySelectorAll('.file-remove').forEach(btn => {
-    btn.addEventListener('click', () => {
+  fileList.querySelectorAll('.file-remove').forEach(function(btn) {
+    btn.addEventListener('click', function() {
       selectedFiles.splice(+btn.dataset.index, 1);
       renderFileList();
     });
@@ -424,43 +534,46 @@ function renderFileList() {
 
 function addFiles(files) {
   fileError.style.display = 'none';
+  const lang = document.documentElement.lang;
+  const errSuffix = I18N[lang].fileErr;
   const errors = [];
-  Array.from(files).forEach(f => {
-    if (f.size > MAX_SIZE) { errors.push(`"${f.name}"은(는) 10MB를 초과합니다.`); return; }
-    if (!selectedFiles.find(s => s.name === f.name && s.size === f.size)) selectedFiles.push(f);
+  Array.from(files).forEach(function(f) {
+    if (f.size > MAX_SIZE) { errors.push('"' + f.name + '"' + errSuffix); return; }
+    if (!selectedFiles.find(function(s) { return s.name === f.name && s.size === f.size; })) selectedFiles.push(f);
   });
   if (errors.length) { fileError.textContent = errors.join(' '); fileError.style.display = 'block'; }
   renderFileList();
 }
 
-fileInput.addEventListener('change', () => { addFiles(fileInput.files); fileInput.value = ''; });
-
-dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
-dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-dropZone.addEventListener('drop', e => {
+fileInput.addEventListener('change', function() { addFiles(fileInput.files); fileInput.value = ''; });
+dropZone.addEventListener('dragover', function(e) { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', function() { dropZone.classList.remove('dragover'); });
+dropZone.addEventListener('drop', function(e) {
   e.preventDefault();
   dropZone.classList.remove('dragover');
   addFiles(e.dataTransfer.files);
 });
 
 /* ── Form submit ── */
+const form        = document.getElementById('inquiry-form');
+const thankYou    = document.getElementById('thank-you');
+const formSection = document.getElementById('form-section');
+const submitBtn   = document.getElementById('submit-btn');
+
 form.addEventListener('submit', async function(e) {
   e.preventDefault();
-
-  const action = form.getAttribute('action');
-  if (!action || action === 'FORMSPREE_URL') {
-    alert('Formspree URL을 설정해 주세요. inquiry.html의 form action 값을 업데이트하세요.');
-    return;
-  }
+  const lang = document.documentElement.lang;
+  const t = I18N[lang];
 
   submitBtn.disabled = true;
-  submitBtn.textContent = '제출 중...';
+  submitBtn.querySelector('.ko') && (submitBtn.querySelector('.ko').textContent = t.submit);
+  submitBtn.querySelector('.en') && (submitBtn.querySelector('.en').textContent = t.submit);
 
   try {
     const data = new FormData(form);
-    selectedFiles.forEach(f => data.append('attachment', f));
+    selectedFiles.forEach(function(f) { data.append('attachment', f); });
 
-    const res = await fetch(action, {
+    const res = await fetch(form.getAttribute('action'), {
       method: 'POST',
       body: data,
       headers: { 'Accept': 'application/json' }
@@ -473,10 +586,11 @@ form.addEventListener('submit', async function(e) {
     } else {
       throw new Error('submit failed');
     }
-  } catch {
-    alert('제출 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+  } catch(err) {
+    alert(I18N[document.documentElement.lang].submitErr);
     submitBtn.disabled = false;
-    submitBtn.textContent = '문의 제출하기';
+    submitBtn.querySelector('.ko') && (submitBtn.querySelector('.ko').textContent = '문의 제출하기');
+    submitBtn.querySelector('.en') && (submitBtn.querySelector('.en').textContent = 'Submit Inquiry');
   }
 });
 </script>
