@@ -26,8 +26,9 @@ html { scroll-behavior:smooth; }
 body { font-family:var(--font); background:var(--ground); color:var(--text); min-height:100vh; line-height:1.65; }
 
 /* LANG TOGGLE */
-html[lang="ko"] .en { display:none !important; }
-html[lang="en"] .ko { display:none !important; }
+html[lang="ko"] .en, html[lang="ko"] .pl { display:none !important; }
+html[lang="en"] .ko, html[lang="en"] .pl { display:none !important; }
+html[lang="pl"] .ko, html[lang="pl"] .en { display:none !important; }
 .lang-toggle { display:flex; align-items:center; gap:4px; }
 .lang-btn {
   background:transparent; border:1px solid var(--border-dark); color:var(--text-muted);
@@ -232,26 +233,29 @@ form { display:flex; flex-direction:column; gap:20px; }
     <div class="lang-toggle">
       <button class="lang-btn active" id="btn-ko" onclick="setLang('ko')">한</button>
       <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btn-pl" onclick="setLang('pl')">PL</button>
     </div>
     <a class="nav-back" href="index.html">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
         <path d="M10 3L5 8l5 5"/>
       </svg>
-      <span class="ko">메인으로 돌아가기</span><span class="en">Back to Main</span>
+      <span class="ko">메인으로 돌아가기</span><span class="en">Back to Main</span><span class="pl">Powrót do strony głównej</span>
     </a>
   </div>
 </nav>
 
 <main>
   <div id="form-section">
-    <p class="page-eyebrow"><span class="ko">도입 문의</span><span class="en">Contact Us</span></p>
+    <p class="page-eyebrow"><span class="ko">도입 문의</span><span class="en">Contact Us</span><span class="pl">Kontakt</span></p>
     <h1 class="page-title">
       <span class="ko">한컴 Agentic OS<br>도입을 검토하고 계신가요?</span>
       <span class="en">Considering<br>Hancom Agentic OS?</span>
+      <span class="pl">Rozważasz wdrożenie<br>Hancom Agentic OS?</span>
     </h1>
     <p class="page-desc">
       <span class="ko">아래 양식을 작성해 주시면 담당 컨설턴트가 1~2 영업일 내 연락드립니다.<br><span style="color:var(--accent)">*</span> 표시 항목은 필수입니다.</span>
       <span class="en">Fill in the form below and our consultant will contact you within 1–2 business days.<br><span style="color:var(--accent)">*</span> Required fields.</span>
+      <span class="pl">Wypełnij poniższy formularz, a nasz konsultant skontaktuje się z Tobą w ciągu 1–2 dni roboczych.<br><span style="color:var(--accent)">*</span> Pola wymagane.</span>
     </p>
 
     <form id="inquiry-form" action="https://formspree.io/f/xpqgqqdr" method="POST">
@@ -261,70 +265,70 @@ form { display:flex; flex-direction:column; gap:20px; }
 
       <div class="form-row">
         <div class="field">
-          <label><span class="ko">회사명</span><span class="en">Company</span> <span>*</span></label>
+          <label><span class="ko">회사명</span><span class="en">Company</span><span class="pl">Firma</span> <span>*</span></label>
           <input type="text" name="company" id="input-company" required>
         </div>
         <div class="field">
-          <label><span class="ko">담당자 성함</span><span class="en">Full Name</span> <span>*</span></label>
+          <label><span class="ko">담당자 성함</span><span class="en">Full Name</span><span class="pl">Imię i nazwisko</span> <span>*</span></label>
           <input type="text" name="name" id="input-name" required>
         </div>
       </div>
 
       <div class="form-row">
         <div class="field">
-          <label><span class="ko">직책 / 부서</span><span class="en">Title / Department</span></label>
+          <label><span class="ko">직책 / 부서</span><span class="en">Title / Department</span><span class="pl">Stanowisko / Dział</span></label>
           <input type="text" name="position" id="input-position">
         </div>
         <div class="field">
-          <label><span class="ko">연락처</span><span class="en">Phone</span> <span>*</span></label>
+          <label><span class="ko">연락처</span><span class="en">Phone</span><span class="pl">Telefon</span> <span>*</span></label>
           <input type="tel" name="phone" id="input-phone" required>
         </div>
       </div>
 
       <div class="field">
-        <label><span class="ko">이메일</span><span class="en">Email</span> <span>*</span></label>
+        <label><span class="ko">이메일</span><span class="en">Email</span><span class="pl">E-mail</span> <span>*</span></label>
         <input type="email" name="email" id="input-email" required>
       </div>
 
       <div class="divider"></div>
 
       <div class="field">
-        <label><span class="ko">직원 규모</span><span class="en">Company Size</span></label>
+        <label><span class="ko">직원 규모</span><span class="en">Company Size</span><span class="pl">Wielkość firmy</span></label>
         <select name="company_size" id="select-size">
           <option value="" disabled selected></option>
         </select>
       </div>
 
       <div class="check-group">
-        <label><span class="ko">관심 배포 방식 (복수 선택 가능)</span><span class="en">Preferred Deployment (multiple choice)</span></label>
+        <label><span class="ko">관심 배포 방식 (복수 선택 가능)</span><span class="en">Preferred Deployment (multiple choice)</span><span class="pl">Preferowana metoda wdrożenia (wielokrotny wybór)</span></label>
         <div class="check-options">
           <label class="check-option">
             <input type="checkbox" name="deploy_type" value="On-Prem">
-            🏢 On-Prem (<span class="ko">폐쇄망</span><span class="en">Closed Network</span>)
+            🏢 On-Prem (<span class="ko">폐쇄망</span><span class="en">Closed Network</span><span class="pl">Sieć zamknięta</span>)
           </label>
           <label class="check-option">
             <input type="checkbox" name="deploy_type" value="SaaS">
-            ☁️ SaaS (<span class="ko">클라우드</span><span class="en">Cloud</span>)
+            ☁️ SaaS (<span class="ko">클라우드</span><span class="en">Cloud</span><span class="pl">Chmura</span>)
           </label>
           <label class="check-option">
             <input type="checkbox" name="deploy_type" value="Hybrid">
-            🔀 <span class="ko">하이브리드</span><span class="en">Hybrid</span>
+            🔀 <span class="ko">하이브리드</span><span class="en">Hybrid</span><span class="pl">Hybrydowy</span>
           </label>
         </div>
       </div>
 
       <div class="field">
-        <label><span class="ko">도입 희망 업무 / 산업</span><span class="en">Target Use Case / Industry</span></label>
+        <label><span class="ko">도입 희망 업무 / 산업</span><span class="en">Target Use Case / Industry</span><span class="pl">Docelowy przypadek użycia / Branża</span></label>
         <input type="text" name="industry" id="input-industry">
       </div>
 
       <div class="field">
-        <label><span class="ko">추가 문의사항</span><span class="en">Additional Message</span></label>
+        <label><span class="ko">추가 문의사항</span><span class="en">Additional Message</span><span class="pl">Dodatkowe pytania</span></label>
         <textarea name="message" id="input-message"></textarea>
       </div>
 
       <div class="field">
-        <label><span class="ko">첨부파일</span><span class="en">Attachment</span></label>
+        <label><span class="ko">첨부파일</span><span class="en">Attachment</span><span class="pl">Załącznik</span></label>
         <div class="file-drop-zone" id="file-drop-zone">
           <input type="file" name="attachment" id="file-input"
             accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.hwp,.hwpx,.png,.jpg,.jpeg,.gif,.webp"
@@ -349,14 +353,15 @@ form { display:flex; flex-direction:column; gap:20px; }
         <p class="privacy-title">
           <span class="ko">개인정보 수집 및 이용 동의</span>
           <span class="en">Privacy &amp; Data Collection Consent</span>
+          <span class="pl">Zgoda na zbieranie i przetwarzanie danych osobowych</span>
           <span style="color:var(--accent)"> *</span>
         </p>
         <table class="privacy-table">
           <thead>
             <tr>
-              <th><span class="ko">수집 항목</span><span class="en">Items Collected</span></th>
-              <th><span class="ko">수집 목적</span><span class="en">Purpose</span></th>
-              <th><span class="ko">보유 기간</span><span class="en">Retention Period</span></th>
+              <th><span class="ko">수집 항목</span><span class="en">Items Collected</span><span class="pl">Zbierane dane</span></th>
+              <th><span class="ko">수집 목적</span><span class="en">Purpose</span><span class="pl">Cel</span></th>
+              <th><span class="ko">보유 기간</span><span class="en">Retention Period</span><span class="pl">Okres przechowywania</span></th>
             </tr>
           </thead>
           <tbody>
@@ -364,14 +369,17 @@ form { display:flex; flex-direction:column; gap:20px; }
               <td>
                 <span class="ko">회사명, 담당자 성함,<br>직책/부서, 연락처, 이메일</span>
                 <span class="en">Company, Name,<br>Title/Dept., Phone, Email</span>
+                <span class="pl">Firma, Imię i nazwisko,<br>Stanowisko/Dział, Telefon, E-mail</span>
               </td>
               <td>
                 <span class="ko">도입 문의 접수 및<br>담당자 상담 연락</span>
                 <span class="en">Processing inquiry &amp;<br>consultant follow-up</span>
+                <span class="pl">Przetwarzanie zapytania<br>i kontakt konsultanta</span>
               </td>
               <td>
                 <span class="ko">문의 처리 완료 후<br>3년</span>
                 <span class="en">3 years after<br>inquiry resolved</span>
+                <span class="pl">3 lata po<br>rozwiązaniu zapytania</span>
               </td>
             </tr>
           </tbody>
@@ -381,6 +389,8 @@ form { display:flex; flex-direction:column; gap:20px; }
           수집된 개인정보는 「개인정보 보호법」에 따라 안전하게 관리되며, 목적 외 용도로 사용되지 않습니다.</span>
           <span class="en">You may decline consent, but doing so may limit your ability to submit an inquiry.<br>
           Collected data is managed securely under applicable privacy laws and will not be used for other purposes.</span>
+          <span class="pl">Możesz odmówić zgody, jednak może to uniemożliwić przesłanie zapytania.<br>
+          Zebrane dane są bezpiecznie zarządzane zgodnie z obowiązującymi przepisami o ochronie danych i nie będą wykorzystywane w innych celach.</span>
         </p>
         <label class="privacy-agree">
           <input type="checkbox" name="privacy_agree" id="privacy-agree" required>
@@ -392,12 +402,13 @@ form { display:flex; flex-direction:column; gap:20px; }
           <span>
             <span class="ko">개인정보 수집 및 이용에 동의합니다.</span>
             <span class="en">I agree to the collection and use of my personal data.</span>
+            <span class="pl">Wyrażam zgodę na zbieranie i przetwarzanie moich danych osobowych.</span>
           </span>
         </label>
       </div>
 
       <button type="submit" class="btn-submit" id="submit-btn">
-        <span class="ko">문의 제출하기</span><span class="en">Submit Inquiry</span>
+        <span class="ko">문의 제출하기</span><span class="en">Submit Inquiry</span><span class="pl">Wyślij zapytanie</span>
       </button>
     </form>
   </div>
@@ -410,13 +421,14 @@ form { display:flex; flex-direction:column; gap:20px; }
         <path d="M20 32L28 40L44 24" stroke="#FF6B00" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
-    <h2><span class="ko">문의가 접수되었습니다</span><span class="en">Inquiry Received</span></h2>
+    <h2><span class="ko">문의가 접수되었습니다</span><span class="en">Inquiry Received</span><span class="pl">Zapytanie zostało przyjęte</span></h2>
     <p>
       <span class="ko">담당 컨설턴트가 <strong style="color:var(--text)">1~2 영업일 내</strong> 연락드리겠습니다.<br>추가 문의는 <a href="mailto:yarong09@hancom.com" class="email-link">yarong09@hancom.com</a>으로 보내주세요.</span>
       <span class="en">Our consultant will contact you within <strong style="color:var(--text)">1–2 business days</strong>.<br>For further questions, email <a href="mailto:yarong09@hancom.com" class="email-link">yarong09@hancom.com</a>.</span>
+      <span class="pl">Nasz konsultant skontaktuje się z Tobą w ciągu <strong style="color:var(--text)">1–2 dni roboczych</strong>.<br>W razie dalszych pytań napisz na <a href="mailto:yarong09@hancom.com" class="email-link">yarong09@hancom.com</a>.</span>
     </p>
     <a href="index.html" class="btn-home">
-      <span class="ko">메인 페이지로 돌아가기</span><span class="en">Back to Main Page</span>
+      <span class="ko">메인 페이지로 돌아가기</span><span class="en">Back to Main Page</span><span class="pl">Powrót do strony głównej</span>
     </a>
   </div>
 </main>
@@ -455,6 +467,22 @@ const I18N = {
     submit:     'Submitting...',
     submitErr:  'Submission failed. Please try again later.',
     fileErr:    ' exceeds the 10MB limit.',
+  },
+  pl: {
+    company:    'Np. Hancom Sp. z o.o.',
+    name:       'Jan Kowalski',
+    position:   'Kierownik ds. Innowacji AI',
+    phone:      '+48-000-000-000',
+    email:      'example@company.com',
+    industry:   'Np. automatyzacja oceny kredytowej, optymalizacja operacji fabrycznych',
+    message:    'Opisz swoje bieżące środowisko, budżet, harmonogram itp.',
+    dropText:   '<strong>Przeciągnij i upuść lub kliknij</strong>, aby przesłać pliki',
+    dropHint:   'Dokumenty i obrazy do 10MB (PDF, HWP, Word, Excel, PPT, obrazy)',
+    sizeOpts:   ['Wybierz','Poniżej 50','50–200','200–1 000','Powyżej 1 000'],
+    sizeVals:   ['','Poniżej 50','50–200','200–1 000','Powyżej 1 000'],
+    submit:     'Wysyłanie...',
+    submitErr:  'Wysyłanie nie powiodło się. Spróbuj ponownie później.',
+    fileErr:    ' przekracza limit 10MB.',
   }
 };
 
@@ -462,8 +490,11 @@ function setLang(lang) {
   document.documentElement.lang = lang;
   document.getElementById('btn-ko').classList.toggle('active', lang === 'ko');
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-pl').classList.toggle('active', lang === 'pl');
   document.title = lang === 'en'
     ? 'Contact Us — Hancom Agentic OS'
+    : lang === 'pl'
+    ? 'Kontakt — Hancom Agentic OS'
     : '도입 문의 — 한컴 Agentic OS';
   localStorage.setItem('lang', lang);
 
@@ -597,6 +628,7 @@ form.addEventListener('submit', async function(e) {
     submitBtn.disabled = false;
     submitBtn.querySelector('.ko') && (submitBtn.querySelector('.ko').textContent = '문의 제출하기');
     submitBtn.querySelector('.en') && (submitBtn.querySelector('.en').textContent = 'Submit Inquiry');
+    submitBtn.querySelector('.pl') && (submitBtn.querySelector('.pl').textContent = 'Wyślij zapytanie');
   }
 });
 </script>
