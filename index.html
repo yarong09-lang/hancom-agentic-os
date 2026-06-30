@@ -208,6 +208,50 @@ section { padding:96px 48px; }
 .step-tags { display:flex; flex-wrap:wrap; gap:7px; margin-top:18px; }
 .step-tag { font-size:11px; font-weight:700; color:var(--accent); background:var(--accent-glow); border:1px solid rgba(255,107,0,0.2); padding:4px 10px; border-radius:4px; }
 
+/* ── CATALYST (dark) ── */
+#catalyst { background:var(--surface); }
+.catalyst-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(255,107,0,0.12); border:1px solid rgba(255,107,0,0.35);
+  border-radius:100px; padding:6px 16px; margin-bottom:32px;
+}
+.catalyst-badge-tag {
+  font-size:10px; font-weight:900; letter-spacing:0.18em;
+  background:var(--accent); color:#fff;
+  padding:3px 8px; border-radius:20px;
+}
+.catalyst-badge-text { font-size:13px; font-weight:600; color:var(--accent); }
+.catalyst-stats {
+  display:flex; gap:0; margin-top:48px; margin-bottom:56px;
+  border:1px solid var(--border-dark); border-radius:var(--radius-lg); overflow:hidden;
+}
+.catalyst-stat {
+  flex:1; padding:24px 28px; text-align:center;
+  border-right:1px solid var(--border-dark);
+}
+.catalyst-stat:last-child { border-right:none; }
+.catalyst-stat-num { font-size:36px; font-weight:900; color:var(--accent); letter-spacing:-0.04em; line-height:1; margin-bottom:6px; }
+.catalyst-stat-lbl { font-size:13px; color:var(--text-muted); font-weight:500; }
+.team-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.team-card {
+  background:var(--surface-2); border:1px solid var(--border-dark);
+  border-radius:var(--radius-lg); padding:32px 28px;
+  transition:border-color var(--ease), transform var(--ease);
+  position:relative; overflow:hidden;
+}
+.team-card:hover { border-color:rgba(255,107,0,0.45); transform:translateY(-4px); }
+.team-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--accent); }
+.team-count {
+  display:inline-block; font-size:11px; font-weight:800; letter-spacing:0.1em;
+  color:var(--accent); background:var(--accent-glow);
+  border:1px solid rgba(255,107,0,0.25); border-radius:4px;
+  padding:3px 8px; margin-bottom:18px;
+}
+.team-role { font-size:20px; font-weight:800; color:var(--text); margin-bottom:6px; line-height:1.3; }
+.team-focus { font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.team-desc { font-size:14px; color:var(--text-muted); line-height:1.75; }
+@media (max-width:900px) { .team-grid { grid-template-columns:1fr; } .catalyst-stats { flex-direction:column; } .catalyst-stat { border-right:none; border-bottom:1px solid var(--border-dark); } .catalyst-stat:last-child { border-bottom:none; } }
+
 /* ── CASES (light) ── */
 #cases { background:var(--light-bg); color:var(--light-text); }
 #cases .section-desc { color:var(--light-muted); }
@@ -378,6 +422,7 @@ footer p { font-size:13px; color:var(--text-muted); }
     <li><a href="#why"><span class="ko">왜 지금인가</span><span class="en">Why Now</span></a></li>
     <li><a href="#what"><span class="ko">제품 소개</span><span class="en">Product</span></a></li>
     <li><a href="#how"><span class="ko">서비스</span><span class="en">Services</span></a></li>
+    <li><a href="#catalyst">Catalyst</a></li>
     <li><a href="#cases"><span class="ko">적용 사례</span><span class="en">Use Cases</span></a></li>
     <li><a href="#roi"><span class="ko">기대효과</span><span class="en">ROI</span></a></li>
     <li><a href="#governance"><span class="ko">보안</span><span class="en">Security</span></a></li>
@@ -609,6 +654,57 @@ footer p { font-size:13px; color:var(--text-muted); }
           <span class="step-tag">LLMOps</span>
           <span class="step-tag"><span class="ko">ROI 극대화</span><span class="en">ROI Maximization</span></span>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATALYST -->
+<section id="catalyst">
+  <div class="container">
+    <div class="catalyst-badge fi">
+      <span class="catalyst-badge-tag">CATALYST</span>
+      <span class="catalyst-badge-text"><span class="ko">전문가 팀 지원 서비스</span><span class="en">Expert Team Support Service</span></span>
+    </div>
+    <h2 class="section-title fi fi-d1" style="color:var(--text)">Hancom Agent Catalyst</h2>
+    <p class="section-desc fi fi-d2" style="color:var(--text-muted)">
+      <span class="ko">5인 이상의 전문가 그룹이 고객사 현장에 <strong style="color:var(--accent)">6주간 상주</strong>하며 AI 전환을 가속화(Catalyze)합니다. 전략 수립부터 MVP 개발·성능 고도화까지 한 팀이 책임집니다.</span>
+      <span class="en">A team of <strong style="color:var(--accent)">5+ specialists</strong> works on-site at your location for <strong style="color:var(--accent)">6 weeks</strong> to accelerate AI transformation. One team owns everything from strategy through MVP development and performance optimization.</span>
+    </p>
+
+    <div class="catalyst-stats fi fi-d2">
+      <div class="catalyst-stat">
+        <div class="catalyst-stat-num">5<span style="font-size:22px">+</span></div>
+        <div class="catalyst-stat-lbl"><span class="ko">전문가 상주</span><span class="en">On-site Experts</span></div>
+      </div>
+      <div class="catalyst-stat">
+        <div class="catalyst-stat-num">6<span style="font-size:22px"><span class="ko">주</span><span class="en">wk</span></span></div>
+        <div class="catalyst-stat-lbl"><span class="ko">고객사 현장 상주</span><span class="en">On-site Engagement</span></div>
+      </div>
+      <div class="catalyst-stat">
+        <div class="catalyst-stat-num">MVP</div>
+        <div class="catalyst-stat-lbl"><span class="ko">직접 개발·납품</span><span class="en">Built &amp; Delivered</span></div>
+      </div>
+    </div>
+
+    <div class="team-grid fi fi-d2">
+      <div class="team-card">
+        <div class="team-count"><span class="ko">1명</span><span class="en">×1</span></div>
+        <div class="team-role">PM</div>
+        <div class="team-focus"><span class="ko">프로젝트 리딩</span><span class="en">Project Leadership</span></div>
+        <div class="team-desc"><span class="ko">AI 전환 과제를 선정하고 전체 일정을 관리합니다. 고객사 이해관계자와의 커뮤니케이션을 총괄합니다.</span><span class="en">Selects AI transformation initiatives and manages the full project schedule. Leads all stakeholder communication with the client.</span></div>
+      </div>
+      <div class="team-card">
+        <div class="team-count"><span class="ko">1명</span><span class="en">×1</span></div>
+        <div class="team-role"><span class="ko">컨설턴트</span><span class="en">Consultant</span></div>
+        <div class="team-focus"><span class="ko">업무 흐름 설계</span><span class="en">Workflow Design</span></div>
+        <div class="team-desc"><span class="ko">현장 업무를 분석하여 유즈케이스를 발굴하고 AI 적용 프로세스를 최적화합니다.</span><span class="en">Analyzes on-site workflows to discover use cases and optimize AI-applied processes.</span></div>
+      </div>
+      <div class="team-card">
+        <div class="team-count"><span class="ko">3명</span><span class="en">×3</span></div>
+        <div class="team-role"><span class="ko">개발자</span><span class="en">Developer</span></div>
+        <div class="team-focus"><span class="ko">직접 개발 · 구현</span><span class="en">Direct Build &amp; Implementation</span></div>
+        <div class="team-desc"><span class="ko">MVP를 현장에서 직접 개발하고 성능 고도화까지 책임집니다. 고객사 시스템과의 연동도 포함합니다.</span><span class="en">Directly builds the MVP on-site and owns performance optimization. Includes integration with client systems.</span></div>
       </div>
     </div>
   </div>
